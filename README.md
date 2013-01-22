@@ -1,4 +1,4 @@
-Test001
+Ejercicios
 =======
 
-First repository created.
+Ejercicios dentro del proceso de aprendizaje.
