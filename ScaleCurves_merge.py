@@ -24,7 +24,7 @@ def ChooseAlgorithm():
 def curveScaleArea(strCurve):
     #print("Scale Area")
     if not rs.IsCurveClosed(strCurve):
-        print("The curve is open, please close the curve before use this algorithm")
+        print("The curve is open, please close the curve before use this algorithm, mathafaka!")
         return
     dblArea = rs.CurveArea(strCurve)
     dblTargetArea = rs.GetReal("Define target area. The actual area is "+str(dblArea[0]))
@@ -38,14 +38,14 @@ def curveScaleArea(strCurve):
         dblArea = rs.CurveArea(strCurve)
         intCount = (intCount + 1)
         #print intCount
-        if intCount >= 5:
+        if intCount >= 6:
             strNewCurve = rs.CopyObject(strCurve)
             intCount=0
     while (dblArea[0] >= dblTargetArea):
         strCurve = rs.ScaleObject(strCurve,dblScalePoint[0],(0.99,0.99,0.99))
         dblArea = rs.CurveArea(strCurve)
         intCount = (intCount + 1)
-        if intCount >= 5:
+        if intCount >= 6:
             strNewCurve = rs.CopyObject(strCurve)
             intCount=0
     print "The new area is: ",dblArea[0]
