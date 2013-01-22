@@ -6,7 +6,6 @@
 import rhinoscriptsyntax as rs
 import math as m
 import random as r
-import datetime as dt
 
 def walker (strLocation, dblStepSize, strMode):
     #Selecting mode
