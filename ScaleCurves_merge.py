@@ -1,5 +1,6 @@
 #Escalado incremental de curva con ajuste a area o longitud y creacion de
 #pasos intermedios cada 5 iteraciones.
+#Prueba de Git.
 #Pythones 121218 @Angel & @Manuel
 
 import rhinoscriptsyntax as rs #Importa los metodos de rhinoscript
