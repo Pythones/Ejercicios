@@ -89,6 +89,9 @@ def main():
     else:
         strWalkerLayer = rs.AddLayer("Walker_Path")
 
+    #################
+    # Main loop
+    #################
     if (strProcess == "No"): rs.EnableRedraw(False) #Turning redraw off
 
     for i in range(0, intIterations, 1): # main loop

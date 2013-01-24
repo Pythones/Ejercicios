@@ -1,0 +1,1 @@
+Carpeta dedicada a compartir archivos python con funciones personalizadas que puedan ser de utilidad para el grupo.
