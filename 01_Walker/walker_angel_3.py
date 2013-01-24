@@ -8,7 +8,6 @@ import math as m
 import random as r
 
 def walker (strLocation, dblStepSizeX, dblStepSizeY, dblStepSizeD, strMode):
-    dblStepSizeD = m.sqrt((dblStepSizeD*dblStepSizeD)/2) #Calculating vector component
     #Selecting mode
     if (strMode == "Mixed"):
         intChoice = r.randint(0,7) #random number for direction choice.
@@ -88,7 +87,9 @@ def main():
         strWalkerLayer = "Walker_Path"
     else:
         strWalkerLayer = rs.AddLayer("Walker_Path")
-
+        
+    dblStepD = m.sqrt((dblStepD*dblStepD)/2) #Calculating vector component
+ 
     #################
     # Main loop
     #################
