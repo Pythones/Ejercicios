@@ -11,7 +11,9 @@ if strMovement == "gridding": intMovement = 4
 else: intMovement = 8
     
 #scalefactor altera al vector desplazamiento (1,0,0) pasa a (strScale,0,0)
-intScale = rs.GetInteger("Factor Scale",1,0.1,10)
+#intScale = rs.GetInteger("Factor Scale",1,0.1,10
+
+
     
 #este integer es el que alimenta al loop
 intDistance = rs.GetInteger("How long do you want to go?",1000,150,2500)
@@ -22,6 +24,7 @@ def runningengine():
     intIterations = 0
     while (intIterations < intDistance):
         
+        intScale = rd.uniform(1.0,5.0)
         intIterations = (intIterations+1)
         intrandom = rd.randint(1,intMovement)
         print intrandom
