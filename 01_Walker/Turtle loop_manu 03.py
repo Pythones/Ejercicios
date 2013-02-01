@@ -3,25 +3,28 @@
 import rhinoscriptsyntax as rs
 import random as rd
 
-#def choosingmodule (): si se meten los valores e esta funcion, no los reconoce la siguiente???
+def choosingmodule (intMovement,intDistance):
+        
+    #Dos caminos a elegir
+    strMovement = rs.GetString("movement type","gridding",("gridding","triangulate"))
+    if strMovement == "gridding": intMovement = 4
+    else: intMovement = 8
+        
+    #scalefactor altera al vector desplazamiento (1,0,0) pasa a (strScale,0,0)
+    #intScale = rs.GetInteger("Factor Scale",1,0.1,10)
+        
+    #este integer es el que alimenta al loop
+    intDistance = rs.GetInteger("How long do you want to go?",1000,150,2500)
     
-#Dos caminos a elegir
-strMovement = rs.GetString("movement type","gridding",("gridding","triangulate"))
-if strMovement == "gridding": intMovement = 4
-else: intMovement = 8
+    return (intDistance,intMovement)
     
-#scalefactor altera al vector desplazamiento (1,0,0) pasa a (strScale,0,0)
-#intScale = rs.GetInteger("Factor Scale",1,0.1,10
-
-
-    
-#este integer es el que alimenta al loop
-intDistance = rs.GetInteger("How long do you want to go?",1000,150,2500)
     
 def runningengine():
     
     Pt1 = rs.GetPoint("Select a point to run throw your window")
     intIterations = 0
+    intDistance = choosingmodule (intMovement,intDistance)
+    intMovement = choosingmodule (intMovement,intDistance)    
     while (intIterations < intDistance):
         
         intScale = rd.uniform(1.0,5.0)
@@ -41,5 +44,6 @@ def runningengine():
         
         rs.AddLine(Pt1,Pt2)
         Pt1 = Pt2
-        
+    
+    
 runningengine ()
