@@ -32,7 +32,7 @@ def recursion (l1,angle):
         PtEnda = rs.PointAdd(ptEnd,v1)
         PtEndb = rs.PointAdd(ptEnd,v2)
         #Creamos nuevas lineas
-        l2 = rs.AddLine(ptEnd,PtEnda)
+        l1 = rs.AddLine(ptEnd,PtEnda)
         l3 = rs.AddLine(ptEnd,PtEndb)
         
         #recursion (l2,angle)
