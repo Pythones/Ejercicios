@@ -9,7 +9,7 @@ def imput():
     #Pedimos dos puntos para linea base y un angulo de rotacion recursiva
     pt1 = rs.GetPoint("Start point")
     pt2 = rs.GetPoint("End point")
-    pt3 = rs.GetPoint("specify an angle_imput a revisar (tuple)")
+    #pt3 = rs.GetPoint("specify an angle_imput a revisar (tuple)")
     #Lanzamos la linea base
     l1 = rs.AddLine(pt1,pt2)
     #Calculamos el angulo
@@ -32,8 +32,11 @@ def recursion (l1,angle):
         PtEnda = rs.PointAdd(ptEnd,v1)
         PtEndb = rs.PointAdd(ptEnd,v2)
         #Creamos nuevas lineas
-        l1 = rs.AddLine(ptEnd,PtEnda)
-        l2 = rs.AddLine(ptEnd,PtEndb) 
+        l2 = rs.AddLine(ptEnd,PtEnda)
+        l3 = rs.AddLine(ptEnd,PtEndb)
+        
+        #recursion (l2,angle)
+        #recursion (l3,angle)
         
         
 imput()
