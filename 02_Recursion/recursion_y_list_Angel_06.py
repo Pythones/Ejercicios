@@ -2,9 +2,7 @@ import rhinoscriptsyntax as rs
 import math as m
 import random as r
 
-
-
-def RAMAS(punto,dist,angle):
+def RAMAS(punto,dist,angle,initialDist):
     strPtM= rs.PointAdd(punto,(0,dist,0))
     #ang1=r.uniform(A,B)
     #ang2=r.uniform(A,B)
@@ -13,9 +11,9 @@ def RAMAS(punto,dist,angle):
     rs.AddLine(punto,strPtM)
     rs.AddLine(strPtM,strPt1)
     rs.AddLine(strPtM,strPt2)
-    if dist>dblDist/100: 
-        RAMAS(strPt1,dist/1.2,angle+(m.pi/12))
-        RAMAS(strPt2,dist/2,angle+(m.pi/12))
+    if dist>initialDist/100: 
+        RAMAS(strPt1,dist/1.2,angle+(m.pi/12),initialDist)
+        RAMAS(strPt2,dist/2,angle+(m.pi/12),initialDist)
     else: return
 
 def main():
@@ -27,7 +25,7 @@ def main():
     rs.EnableRedraw(False)
     
     for i in range(len(strPt0)):
-        RAMAS(strPt0[i],dblDist,dblAngle)
+        RAMAS(strPt0[i],dblDist,dblAngle,dblDist)
     
     rs.EnableRedraw(True)
     
