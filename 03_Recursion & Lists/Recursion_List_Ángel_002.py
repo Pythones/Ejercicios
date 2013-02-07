@@ -11,7 +11,7 @@ def main():
     p3dPto = []
     dblParam = []
     v3dTangents = []
-    v3dTangentsGroups = []
+    v3dNormals = []
     
     strCurves = rs.GetObjects("Select support curves", 4, False, True)
     if strCurves is None: return #Error checking
@@ -28,10 +28,12 @@ def main():
     
     #Nested loops used to create normal vectors.
     for j in range(len(strCurves)):
-        for k in range(len(dblParam)):
-            v3dTangents[j][k] = rs.CurveTangent(strCurves[j],dblParam[j][k])
+        v3dTangents.append([])
+        v3dNormals.append([])
+        for k in range(intDiv+1): #Dado que ptos. de div. = segmentos + 1
+            v3dTangents[j].append(rs.CurveTangent(strCurves[j],dblParam[j][k]))
             #Cross product with Z to calculate normal vectors to curves.
-            v3dNormals[j][k] = rs.VectorCrossProduct(v3dTangents[j,k],(0,0,1))
+            v3dNormals[j].append(rs.VectorCrossProduct(v3dTangents[j][k],(0,0,1)))
     #trees(p3dPto, v3dNormals, dblAngle, intDiv)
     
 #def trees(Pts, Normals, Angle, Div):
