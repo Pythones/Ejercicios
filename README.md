@@ -13,3 +13,4 @@ Ejercicios dentro del proceso de aprendizaje propuestos en el grupo Pythones.
 * [03_Recursion & Lists](https://github.com/Pythones/Ejercicios/tree/master/03_Recursion & Lists): Expansión del sistema de dibujo recursivo incorporando el sampleo de una curvas y el uso de listas (05022013)
 
 ##Manual de estilo##
+Zona para detallar normas de estilo a seguir en el código creado por cada integrante.
