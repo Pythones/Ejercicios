@@ -4,7 +4,7 @@ import random as r
 
 strPt0= rs.GetPoint("Introduzca el punto de origen")
 dblDist= rs.GetReal("Distancia de la rama")
-dblA=m.pi/3
+dblA=m.pi/6
 
 
 
@@ -18,11 +18,11 @@ def RAMAS(punto,dist,A):
     rs.AddLine(punto,strPtM)
     rs.AddLine(strPtM,strPt1)
     rs.AddLine(strPtM,strPt2)
-    if (dist>dblDist/10 and r.randint(0,10)>2): 
+    if (dist>dblDist/10 and r.randint(0,10)>1): 
         if r.randint(0,20)>1:
-            RAMAS(strPt1,dist-(dist/10),m.sin(A)*A)
+            RAMAS(strPt1,dist-(dist/10),m.sin(A)*1.1)
         if r.randint(0,20)>1:           
-            RAMAS(strPt2,dist-(dist/10),m.sin(A)*A)
+            RAMAS(strPt2,dist-(dist/10),m.sin(A)*1.1)
     else: return
 
 #rs.EnableRedraw(False)
