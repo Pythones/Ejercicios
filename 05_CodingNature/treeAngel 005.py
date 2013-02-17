@@ -15,7 +15,7 @@ def main():
 
 def tree(Pto,dblStep,dblAngle,intLimit,x):
     if x>intLimit: return
-    #dblRand = r.uniform(-dblAngle,dblAngle)
+    dblRand = r.uniform(-dblAngle,dblAngle)
     v3dRand = (m.cos(dblAngle+(m.pi/2)),m.sin(dblAngle+(m.pi/2)),0)
     PtM = rs.PointAdd(Pto,v3dRand)
     rs.AddLine(Pto,PtM)
@@ -25,5 +25,7 @@ def tree(Pto,dblStep,dblAngle,intLimit,x):
     x+=1
     for x in range(1,intBranch):
         tree(PtM,dblStep*0.8,dblAngle*2*r.random()*1.1,intLimit*0.9,x+1)
+
+
 
 main()
