@@ -8,28 +8,33 @@ i = 0
 
 def main():
     #asking for data.
-    dblLength = rs.GetReal("Initial growing length",1,0.01,10)
-    dblAngle = m.radians(rs.GetReal("Random angle limit",25,0,90))
     strPt = rs.GetPoint("Growing point")
+    dblLength = rs.GetReal("Initial growing length",1,0.01,10)
+    dblAngle = (rs.GetReal("Random angle limit",25,0,90))
     intLimit = rs.GetInteger("Iterations limit",7,1,1000)
-    tree(strPt,dblLength, dblAngle, intLimit, i)
+    v3dIni = (0,dblLength,0)
+    tree(strPt,dblLength, dblAngle, intLimit, i, v3dIni)
 
-def tree(Pto,dblStep,dblAngle,intLimit,x):
+def tree(Pto,dblStep,dblAngle,intLimit,x, v3d):
     if x>intLimit: return
-    dblRand = r.uniform(-dblAngle,dblAngle)
-    v3dRand = (m.cos(dblAngle+(m.pi/2)),m.sin(dblAngle+(m.pi/2)),0)
-    PtM = rs.PointAdd(Pto,v3dRand)
+    #Never go back
+    if dblAngle>90: dblAngle = 90
+    PtM = rs.PointAdd(Pto,randomv(v3d,dblAngle,dblStep))
     rs.AddLine(Pto,PtM)
     intBranch = r.randint(1,5)
-    if x>intLimit-0.5: 
-        rs.AddCircle(PtM,0.01*x)
+    #if x>intLimit-0.5: 
+        #rs.AddCircle(PtM,0.01*x)
     x+=1
     for x in range(1,intBranch):
-        tree(PtM,dblStep*0.8,dblAngle*2*r.random()*1.1,intLimit*0.9,x+1)
-
+        tree(PtM, dblStep*0.8, dblAngle*1.5, intLimit*0.9, x+1, v3d)
 
 def randomv (vec, maxAngle, maxLength):
-    vec = rs.VectorScale(vec,r.uniform(0.2*maxLength,maxLength))
-    vec = rs.VectorRotate(vec,
+    vec = rs.VectorScale(vec,r.uniform(0.5*maxLength,maxLength))
+    vec = rs.VectorRotate(vec,randsign()*r.uniform(0.05*maxAngle,maxAngle),(0,0,1))
+    return vec
+
+def randsign():
+    a = r.randrange(0,2,1)*2-1
+    return a
     
 main()
