@@ -27,11 +27,14 @@ def tree(Pto,dblStep,dblAngle,intLimit,x, v3d):
         #rs.AddCircle(PtM,0.01*x)
     x+=1
     for x in range(1,intBranch):
-        tree(PtM, dblStep*0.8, dblAngle*1.5, intLimit*0.9, x+1, v3d)
+        tree(PtM, dblStep*0.9, dblAngle*1.1, intLimit*0.9, x+1, v3d)
+
+#There is a problem with VectorScale and the general algorithm scale.
+# Values of 2 in the input generates great results. The smaller the value, the worst the result.
 
 def randomv (vec, maxAngle, maxLength):
     vec = rs.VectorScale(vec,r.uniform(0.5*maxLength,maxLength))
-    vec = rs.VectorRotate(vec,randsign()*r.uniform(0.9*maxAngle,maxAngle),(0,0,1))
+    vec = rs.VectorRotate(vec,randsign()*r.uniform(0.5*maxAngle,maxAngle),(0,0,1))
     return vec
 
 def randsign():
