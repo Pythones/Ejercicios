@@ -3,6 +3,7 @@
 import rhinoscriptsyntax as rs
 import math as m
 import random as r
+
 i = 0
 
 def main():
@@ -27,5 +28,8 @@ def tree(Pto,dblStep,dblAngle,intLimit,x):
         tree(PtM,dblStep*0.8,dblAngle*2*r.random()*1.1,intLimit*0.9,x+1)
 
 
-
+def randomv (vec, maxAngle, maxLength):
+    vec = rs.VectorScale(vec,r.uniform(0.2*maxLength,maxLength))
+    vec = rs.VectorRotate(vec,
+    
 main()
