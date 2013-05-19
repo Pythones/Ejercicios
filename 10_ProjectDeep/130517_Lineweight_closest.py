@@ -52,35 +52,22 @@ def imput():
             farclose.append(True)
         else:
             farclose.append(False)
-            
-            
-            
-    #Comprobamos a que hemos llegado
-    #for i in range(len(distMin)):
-        #rs.AddTextDot("PtMin",distMin[i])
     
     print (farclose)
-    #deeper(PlProy,edge,farclose)
-    
-    #User comunication module 
-    #def deeper(plane,lines,dist):
-    
+    deeper(PlFinal,edge,farclose)
+
+
+#User comunication module
+def deeper(plane,lines,dist):
+
     #Proyectamos las lineas
     Proj = []
-    Proj = rs.ProjectCurveToSurface(edge,PlFinal,(1,0,0))
+    Proj = rs.ProjectCurveToSurface(lines,plane,(1,0,0))
     
     #Damos espesor a la proyeccion
     for i in range(len(Proj)):
-        if farclose[i] is True:
-            #rs.AddLayer("Deep_Cerca",Red)
-            rs.ObjectColor(Proj[i],(100,0,0))
-            
+        rs.ObjectLayer(Proj[i],"Projection")
+        if dist[i] is True:
+            rs.ObjectColor(Proj[i],(255,0,0))
 
-#Eliminamos las lineas ocultas de nuestra proyeccion            
-def hiddenlines():
-    
-    #hacemos make2d
-    
-    
-    
 imput()
