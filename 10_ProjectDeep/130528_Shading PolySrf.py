@@ -41,16 +41,31 @@ def main():
         strCrv.append(rs.DuplicateSurfaceBorder(srf))
         v3dNormals.append(rs.SurfaceNormal(srf,[0,0]))
     
-    print str(ptoLine[0])+", "+str(ptoLine[1])
+    #print str(ptoLine[0])+", "+str(ptoLine[1])
     
     v3dLine = rs.VectorCreate(ptoLine[0],ptoLine[1])
         
     for vect in v3dNormals:
         dblAngle.append(rs.VectorAngle(vect,v3dLine))
-    strHaches = []
+    strHatches = []
     for i in range(0,len(dblAngle)):
         dblAngle[i] = int((dblAngle[i]/max(dblAngle))*intGrad)
         strHatches.append(rs.AddHatch(strCrv[i],None,dblAngle[i],0))
+        
+        if not rs.IsLayer("Hatches"):
+            rs.AddLayer("Hatches",(200,200,200))
+        rs.ObjectLayer(strHatches[i],"Hatches")
+        
+        if not rs.IsLayer("Polysrf"):
+            rs.AddLayer("Polysrf",(0,0,0))
+        rs.ObjectLayer(strSrf[i],"Polysrf")
+        
+    rs.SelectObjects(strHatches)
+    rs.Command("_Explode _Group -_Make2d _MaintainSourceLayers=_Yes Enter _SelLast Group _SelNone",False)
+    
+    
+    rs.SelectObjects(strSrf)
+    rs.Command("-_Make2d _MaintainSourceLayers=_Yes Enter _SelLast Group SelNone",False)
         
     
     
