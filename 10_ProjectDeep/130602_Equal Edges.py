@@ -3,13 +3,10 @@
 #deletes our projection lines if they are hidden after make2d
 
 import rhinoscriptsyntax as rs
+import math as mt
 
 #User comunication module 
 def imput(): 
-
-    #Units
-    rs.UnitAngleTolerance(2.0)
-    rs.UnitAbsoluteTolerance(0.1)
 
     #lists for our projected lines and the ones projected by the make2d
     Projection = []
@@ -48,13 +45,13 @@ def imput():
     angleListProj = []
     for i in range (len(Projection)):
         if -90<=ProjectionAngle[i][0]<0:
-            angleListProj.append(ProjectionAngle[i][0]*(-1))
+            angleListProj.append(round((ProjectionAngle[i][0]*(-1)),2))
         elif -180<=ProjectionAngle[i][0]<-90:
-            angleListProj.append((-180-ProjectionAngle[i][0])*(-1))
+            angleListProj.append(round(((-180-ProjectionAngle[i][0])*(-1)),2))
         elif ProjectionAngle[i][0]>90:
-            angleListProj.append(180-ProjectionAngle[i][0])
+            angleListProj.append(round((180-ProjectionAngle[i][0]),2))
         else:
-            angleListProj.append(ProjectionAngle[i][0])
+            angleListProj.append(round((ProjectionAngle[i][0]),2))
         
     #Now the turn for HiddenornotAngle
     #listB is just for testing scrip
@@ -65,13 +62,13 @@ def imput():
     angleListHidden = []
     for i in range (len(Hiddenornot)):
         if -90<=HiddenornotAngle[i][0]<0:
-            angleListHidden.append(HiddenornotAngle[i][0]*(-1))
+            angleListHidden.append(round((HiddenornotAngle[i][0]*(-1)),2))
         elif -180<=HiddenornotAngle[i][0]<-90:
-            angleListHidden.append((-180-HiddenornotAngle[i][0])*(-1))
+            angleListHidden.append(round(((-180-HiddenornotAngle[i][0])*(-1)),2))
         elif HiddenornotAngle[i][0]>90:
-            angleListHidden.append(180-HiddenornotAngle[i][0])
+            angleListHidden.append(round((180-HiddenornotAngle[i][0]),2))
         else:
-            angleListHidden.append(HiddenornotAngle[i][0])
+            angleListHidden.append(round((HiddenornotAngle[i][0]),2))
         
     #Looking for duplicates
     #First we look for extrem points, then we make sure with angle
