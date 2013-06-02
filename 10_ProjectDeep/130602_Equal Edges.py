@@ -16,7 +16,7 @@ def imput():
     #filter necessary to avoid brake down
     Projection = rs.ObjectsByLayer("Projection",rs.filter.curve)
     Hiddenornot = rs.ObjectsByLayer("Hidden",rs.filter.curve)
-    Hiddenornot.append(rs.ObjectsByLayer("Visible",rs.filter.curve))
+    #Hiddenornot.append(rs.ObjectsByLayer("Visible",rs.filter.curve))
     
     #List for projection and hiddenornot end and starts points
     Projection1,Projection2 = [],[]
@@ -29,6 +29,9 @@ def imput():
         Projection1.append(rs.CurveStartPoint(Projection[i]))
         Projection2.append(rs.CurveEndPoint(Projection[i]))
         ProjectionAngle.append(rs.Angle(Projection1[i],Projection2[i]))
+        
+    print len(Hiddenornot)
+    print Hiddenornot
         
     for i in range (len(Hiddenornot)):
         Hiddenornot1.append(rs.CurveStartPoint(Hiddenornot[i]))
