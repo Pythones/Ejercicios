@@ -23,16 +23,32 @@ def imput():
 #Script Body developement
 def main (contour,cub,numDivs):
     
-    #Proyectamos todas las curvas en el plano de la curva superior
+    #Proyectamos todas las curvas en el plano xy
     #Las almacenamos en una nueva lista
-    ncurvasup = len(contour)-1
-    curvasup = contour[ncurvasup]
-    plproj = rs.CurvePlane(curvasup)
-    xform = rs.XformPlanarProjection(plproj)
+    #ncurvasup = len(contour)-1
+    #curvasup = contour[ncurvasup]
     contourProj = []
-    contourProj = rs.TransformObjects(contour,xform,True )
+    plproj = rs.WorldXYPlane()
+    xform = rs.XformPlanarProjection(plproj)
+    contourProj = rs.TransformObjects(contour,xform,True)
     
-    #Definimos los puntos de inicio
+    #Para asegurar el script eliminamos las curvas no cerradas
+    lenCont = len(contourProj)
+    closeContour = []
+    for i in range (lenCont)
+        closeContour.append(rs.IsCurveClosed(contourProj[i]))
+        if closeContour[i] is False
+            rs.DeleteObject(contourP
+    
+    #Definimos los puntos de inicio sobre la curva de inicio
+    #La de inicio sera la mas pequena, la superior (aunque no es verdad)
+    
+    if rs.CurveArea(contourProj[0]) < rs.CurveArea(contourProj[lenCont-1]):
+        curvasup = contourProj[0]
+    else:
+        curvasup = contourProj[lenCont-1]
+    
+    #Continuamos con los puntos
     pts = []
     pts = rs.DivideCurve(curvasup,numDivs)
     
