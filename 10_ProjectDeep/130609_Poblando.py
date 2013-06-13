@@ -29,7 +29,7 @@ def main():
     
     rs.EnableRedraw(False)
     Falls(strBaseSrf)
-    #Flows(strBaseSrf,dblStep,intIterations)
+    Flows(strBaseSrf,dblStep,intIterations)
     rs.EnableRedraw(True)
     
     time1 = t.time()
@@ -80,7 +80,29 @@ def Falls(strSfr):
     rs.EnableRedraw(True)
     
     
-#def Flows(strSrf,step,iterations):
+def Flows(strSrf,step,iterations):
     
+    global p3dDropsPos
+    global p3dDropProj
+    
+    #Tomamos los ptos proyectados y sacamos coordenadas
+    for i in range (len(p3dDropProj))
+        p3dDummy1 = rs.coerce3dpoint(p3dDropProj[i])#obtenemos pto es srf
+        p3dUV = rs.SurfaceClosestPoint(strSrf,p3dDummy1[i])#obtenemos su uv
+        v3dNormal = rs.SurfaceNormal(strSrf,p3dUV[i])#sacamos la normal en ese pto a la srf
+        v3dUni = rs.VectorUnitize(v3dNormal[i])#hacemos unitario el vector
+        p3dDummy2 = rs.PointAdd(p3dDummy1,v3dUni[i])#desplazamos el pto segun la normal ya unitaria
+        
+        #set break point
+        ptCoord = rs.PointCoordinates(p3dDummy2)
+        p3dDummy3 = rs.AddPoint((ptCoords[0], ptCoord[1]))
+        dblLenCheck = rs.Distance(p3dDummy3,p3dDummy2)
+        if dblLenCheck < 0.01: 
+            return None
+        else:
+            lineDummy = rs.AddLine(p3dDummy1,p3dDummy2)#anadimos linea
+            lineProy = rs.ProjectCurveToSurface(lineDummy,strSrf,(0,0,-1))#proyectamos linea sobre srf
+        
+        
 
 main()
