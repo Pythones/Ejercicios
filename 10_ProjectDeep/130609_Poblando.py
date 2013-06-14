@@ -73,8 +73,7 @@ def Flows(strSrf,step,iterations,p3dDropProj2):
     lineProy = []
     p3dDropEnd = []
     p3dDrop = []
-    
-    p3dDummy3, p3dDummy4 = [], []
+    lineProyTest = []
     
     #Tomamos los ptos proyectados y sacamos coordenadas
     #for j in range (iterations):
@@ -84,19 +83,32 @@ def Flows(strSrf,step,iterations,p3dDropProj2):
         v3dNormal.append(rs.SurfaceNormal(strSrf,p3dUV[i]))#sacamos la normal en ese pto a la srf
         v3dUni.append(rs.VectorUnitize(v3dNormal[i]))#hacemos unitario el vector
         p3dDummy2.append(rs.PointAdd(p3dDummy1[i],v3dUni[i]))#desplazamos el pto segun la normal ya unitaria
+        lineDummy.append(rs.AddLine(p3dDummy1[i],p3dDummy2[i]))#anadimos linea
+        lineProyTest.append(rs.ProjectCurveToSurface(lineDummy[i],strSrf,(0,0,-1)))#Proyectamos la linea sobre la superficie
+        rs.DeleteObjects(lineDummy[i])#borramos los pelos
         
-        p3dDummy3.append(rs.ProjectPointToSurface(p3dDummy2[i],strSrf,(0,0,-1)))
-        p3dDummy4.append(rs.coerce3dpoint(p3dDummy3[i]))#obtenemos pto en srf
-        lineDummy.append(rs.AddLine(p3dDummy1[i],p3dDummy4[i]))#anadimos linea
-        
-        
-        #lineDummy.append(rs.AddLine(p3dDummy1[i],p3dDummy2[i]))#anadimos linea
-        #lineProy.append(rs.ProjectCurveToSurface(lineDummy[i],strSrf,(0,0,-1)))#proyectamos linea sobre srf
-        #p3dDropEnd.append(rs.CurveEndPoint(lineProy[5]))#hallamos el pto final de la proy para empezar iteracion
+        #Aqui aparece el problema, pues muchas de estas proy son None
+        #Las tratamos de eliminar, haciendo una lista nueva sin nones
+        if (lineProyTest[i]) != None:
+            lineProy.append(lineProyTest[i])
+            
+        #Buscamos el pto final de las minicurvas para empezar a iterar
+        #p3dDropEnd.append(rs.CurveEndPoint(lineProy[i]))#hallamos el pto final de la proy para empezar iteracion
         #p3dDrop.append(rs.AddPoint(p3dDropEnd[i]))
-        #rs.AddPoint(p3dDropEnd[0])
-        #rs.DeleteObjects(lineDummy[i])#borramos los pelos
-    #print lineProy[0][0]
+        
+    print lineProy[0][0]
+    print lineProy
         
 
 main()
+
+
+
+
+#bonus code
+#import felizcumpleaños as fc
+#if Esther != None:
+    #fc.sendGreetings (Esther,shout)
+    
+#MUCHAS FELICIDADESSSSSSSS!!!
+
