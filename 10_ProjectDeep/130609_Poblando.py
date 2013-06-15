@@ -19,12 +19,14 @@ def main():
     intIterations = rs.GetInteger("Iterations",10)
     dblStep = rs.GetReal("Step size", 0.1,0.01,100)
     strGradient = rs.GetString("Represent flowlines length?","Yes",('Yes','No'))
+    #Counter for Flows
+    Count = 0
     
     time0 = t.time()
     
     rs.EnableRedraw(False)
     Falls(strBaseSrf,p3dDropProj)
-    Flows(strBaseSrf,dblStep,intIterations,p3dDropProj)
+    Flows(strBaseSrf,dblStep,intIterations,p3dDropProj,Count)
     rs.EnableRedraw(True)
     
     time1 = t.time()
@@ -59,11 +61,15 @@ def Falls(strSfr1,p3dDropProj1):
             p3dDropProj1.append(rs.AddPoint(pt)) # add the point
     
     # Turn on redrawing
-    rs.EnableRedraw(True)
+    #rs.EnableRedraw(True)
     
     
-def Flows(strSrf,step,iterations,p3dDropProj2):
+def Flows(strSrf,step,iterations,p3dDropProj2,intCount):
     
+    #New variable for setting a break point
+    intCount = intCount+1
+    
+    #Setting lists    
     p3dDummy1 = []
     p3dUV = []
     v3dNormal = []
@@ -76,28 +82,33 @@ def Flows(strSrf,step,iterations,p3dDropProj2):
     lineProyTest = []
     
     #Tomamos los ptos proyectados y sacamos coordenadas
-    #for j in range (iterations):
     for i in range (len(p3dDropProj2)):
-        p3dDummy1.append(rs.coerce3dpoint(p3dDropProj2[i]))#obtenemos pto en srf
-        p3dUV.append(rs.SurfaceClosestPoint(strSrf,p3dDummy1[i]))#obtenemos su uv
-        v3dNormal.append(rs.SurfaceNormal(strSrf,p3dUV[i]))#sacamos la normal en ese pto a la srf
-        v3dUni.append(rs.VectorUnitize(v3dNormal[i]))#hacemos unitario el vector
-        p3dDummy2.append(rs.PointAdd(p3dDummy1[i],v3dUni[i]))#desplazamos el pto segun la normal ya unitaria
-        lineDummy.append(rs.AddLine(p3dDummy1[i],p3dDummy2[i]))#anadimos linea
-        lineProyTest.append(rs.ProjectCurveToSurface(lineDummy[i],strSrf,(0,0,-1)))#Proyectamos la linea sobre la superficie
-        rs.DeleteObjects(lineDummy[i])#borramos los pelos
         
-        #Aqui aparece el problema, pues muchas de estas proy son None
-        #Las tratamos de eliminar, haciendo una lista nueva sin nones
-        if (lineProyTest[i]) != None:
-            lineProy.append(lineProyTest[i])
-            
+        #obtenemos pto en srf #obtenemos su uv
+        p3dDummy1.append(rs.coerce3dpoint(p3dDropProj2[i]))
+        p3dUV.append(rs.SurfaceClosestPoint(strSrf,p3dDummy1[i]))
+        
+        #sacamos la normal en ese pto a la srf #hacemos unitario el vector #desplazamos el pto
+        v3dNormal.append(rs.SurfaceNormal(strSrf,p3dUV[i]))
+        v3dUni.append(rs.VectorUnitize(v3dNormal[i]))
+        p3dDummy2.append(rs.PointAdd(p3dDummy1[i],v3dUni[i]))
+        
+        #anadimos linea #Proyectamos la linea sobre la superficie #borramos los pelos
+        lineDummy.append(rs.AddLine(p3dDummy1[i],p3dDummy2[i]))
+        lineProyTest.append(rs.ProjectCurveToSurface(lineDummy[i],strSrf,(0,0,-1)))
+        rs.DeleteObjects(lineDummy[i])
+        
+        #Nueva lista eliminando los nones de la anterior (NEW! - USING FILTER)
+        lineProy = filter(None,lineProyTest)
+        
+    for i in range (len(lineProy)):
         #Buscamos el pto final de las minicurvas para empezar a iterar
-        #p3dDropEnd.append(rs.CurveEndPoint(lineProy[i]))#hallamos el pto final de la proy para empezar iteracion
-        #p3dDrop.append(rs.AddPoint(p3dDropEnd[i]))
+        p3dDropEnd.append(rs.CurveEndPoint(lineProy[i]))
         
-    print lineProy[0][0]
-    print lineProy
+    #set a Break Point
+    if intCount<iterations:
+        Flows(strSrf,step,iterations,p3dDropEnd,intCount)
+        
         
 
 main()
@@ -105,10 +116,12 @@ main()
 
 
 
+
+
+
 #bonus code
-#import felizcumpleaños as fc
+#import felizcumpleagnos as fc
 #if Esther != None:
     #fc.sendGreetings (Esther,shout)
     
 #MUCHAS FELICIDADESSSSSSSS!!!
-
