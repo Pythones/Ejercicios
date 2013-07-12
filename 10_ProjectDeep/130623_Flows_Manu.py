@@ -2,7 +2,7 @@
 # 130622 Pythones@Manu
 
 import rhinoscriptsyntax as rs
-import RaindropManu as rd
+import Raindrop_Manu as rd
 
 def main():
     
@@ -15,7 +15,7 @@ def main():
     if not strDrop:
         print 'At least one point ON surface is needed to run the script'
         return
-    intIterations = rs.GetInteger("Iterations",100)
+    intIterations = rs.GetInteger("Iterations",10)
     
     #Inicializo una instancia de gota y la almaceno en la lista drops
     dropCoord = []
@@ -29,7 +29,10 @@ def main():
     for i in range(len(drops)):
         for k in range(intIterations):
             #Llamo a la funcion flow que calcula un deslizamiento
-            drops[i].flow(strBaseSrf)
+            if drops [i]:
+                drops[i].flow(strBaseSrf)
+            else:
+                break
             
             
 if( __name__ == '__main__' ):
