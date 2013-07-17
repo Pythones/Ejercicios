@@ -4,10 +4,11 @@
 import rhinoscriptsyntax as rs
 
 def main():
-    
-    f = open("C:/rgb.txt")
+    arch = []
+    f = open("C:\ColourList.txt","r")
     for line in iter(f):
-        print line
+        arch.append(line)
     f.close()
     
-    print line
+    print arch
+main()

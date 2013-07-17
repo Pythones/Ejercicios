@@ -6,15 +6,24 @@ import rhinoscriptsyntax as rs
 
 def main():
     
-    ## Open the file with read only permitouh
-    f = open("C:/rgb.txt")
-    ## Read the first line 
-    line = f.readline()
+    archivo = []
     
-    ## If the file is not empty keep reading line one at a time
-    ## till the file is empty
+    #Open the file with read only permitouh
+    file = ("C:\ColourList.txt")
+    f = open(file)
+    #Read the first line 
+    line = f.readlines()
+    archivo.append(line)
+    
+    #If the file is not empty keep reading line one at a time
+    #till the file is empty
     while line:
         print line
         line = f.readline()
+        archivo.append(line)
     f.close()
+    
     print line
+    print archivo
+    
+main()
