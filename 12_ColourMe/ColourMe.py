@@ -18,12 +18,14 @@ class ColourMe:
         #adjudicamos el color obtenido al objeto
         rs.ObjectColor(objNewColour,strColour[rcolour])
             
-    def predominantColour(self,strColour):
+    def predominantColour(self,strColour,intUserPred):
                 
         objNewColour = self.objColoured
         #Fabricamos un rango aleatorio
-        rcolour = rd.randint(1,10)
-        if rcolour == "1":
+        nRango = (100/(100-intUserPred))
+        #Fabricamos un rango aleatorio
+        rcolour = rd.randint(1,nRango)
+        if rcolour == 1:
             #adjudicamos el color obtenido al objeto
             rs.ObjectColor(objNewColour,strColour[1])
         else:
