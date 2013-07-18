@@ -25,7 +25,7 @@ def main():
         #return
     
     #asking for a colour mode (3) 
-    strColourMode = rs.GetString("select colour mode","random",['random','predominant'])
+    strColourMode = rs.GetString("select colour mode","random",['random','predominant','multiple_predominant'])
     if not strColourMode:
         print 'At least one colour mode is needed to run the script'
         return
@@ -38,6 +38,7 @@ def main():
     if strColourSource == "rgb":
         strColour.append((140,169,56))
         strColour.append((10,89,56))
+        strColour.append((255,70,0))
         
     #Preparamos la masa
     if strColourSource == "txtfile":
@@ -61,11 +62,20 @@ def main():
             coloured[i].randomColour(strColour)
             
     if strColourMode == "predominant":
-        intUserPred = rs.GetInteger("Set predominant percent for the first colour in list",90,10,100)
+        intUserPred = rs.GetInteger("Set predominant percentage for the first colour in list",90,10,100)
         for i in range (len(objColour)):
             coloured.append(cm.ColourMe(objColour[i]))
             #Llamo a la funcion ColourMe que calcula un deslizamiento
             coloured[i].predominantColour(strColour,intUserPred)
+    
+    if strColourMode == "multiple_predominant":
+        intInterval = rs.GetInteger("Set number of predominant colours",2,2,100)   
+        intPercent = rs.GetInteger("Set percentage for dominant colour group",90,10,100)
+        for i in range (len(objColour)):
+            coloured.append(cm.ColourMe(objColour[i]))
+            #Llamo a la funcion ColourMe que calcula un deslizamiento
+            coloured[i].mPredominantColour(strColour,intPercent,intInterval)
+    
     
     print len (strColour)
     print (strColour)

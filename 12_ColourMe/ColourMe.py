@@ -21,7 +21,7 @@ class ColourMe:
     def predominantColour(self,strColour,intUserPred):
                 
         objNewColour = self.objColoured
-        #Fabricamos un rango aleatorio
+        #Pasamos la porcentual a rango
         nRango = (100/(100-intUserPred))
         #Fabricamos un rango aleatorio
         rcolour = rd.randint(1,nRango)
@@ -30,3 +30,18 @@ class ColourMe:
             rs.ObjectColor(objNewColour,strColour[1])
         else:
             rs.ObjectColor(objNewColour,strColour[0])
+            
+    def mPredominantColour(self,strColour,intPercent,intInterval):
+                
+        objNewColour = self.objColoured
+        #Pasamos la porcentual a rango
+        nRango = (100/(100-intUserPred))
+        #Fabricamos un rango aleatorio
+        rcolour = rd.randint(1,nRango)
+        k = rd.randint(0,n-1)
+        j = rd.randint(n,(len(strColour)-1))
+        if not rcolour == 1:
+            #adjudicamos el color obtenido al objeto
+            rs.ObjectColor(objNewColour,strColour[k])
+        else:
+            rs.ObjectColor(objNewColour,strColour[j])
