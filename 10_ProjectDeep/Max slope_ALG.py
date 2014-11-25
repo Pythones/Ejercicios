@@ -73,8 +73,9 @@ def main():
         # Uno todas las lineas almacenadas y las borro en caso de que haya mas
         # de una almacenada en la lista.
         if len(strCurves)>1:
-            strJCurves = rs.JoinCurves(strCurves,True)
+            #strJCurves = rs.JoinCurves(strCurves,True)
             flowlines.append(strJCurves)
+            #flowlines.append(strCurves)
         elif len(strCurves)==1:
             flowlines.append(strCurves)
     

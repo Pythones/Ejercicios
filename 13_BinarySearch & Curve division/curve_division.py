@@ -2,6 +2,9 @@
 
 import rhinoscriptsyntax as rs
 import Rhino.Geometry as rg
+import pydevd as pyd
+
+pyd.settrace(port=5678,stdoutToServer=True, stderrToServer=True)
 
 def divideCurve(crv,length):
 
